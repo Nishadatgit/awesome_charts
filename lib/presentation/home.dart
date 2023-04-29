@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         titleTextStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(fontWeight: FontWeight.bold),
         title: const Text('Charts'),
       ),
@@ -89,18 +90,16 @@ class HomePage extends StatelessWidget {
       transitionDuration: 500.ms,
       reverseTransitionDuration: 500.ms,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        final position = Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
-            .animate(CurvedAnimation(parent: animation, curve: Curves.easeInOutExpo));
+        final position = Tween<Offset>(begin: const Offset(0, 2), end: const Offset(0, 0))
+            .animate(CurvedAnimation(parent: animation, curve: Curves.linearToEaseOut));
         return Align(
-          alignment: Alignment.bottomRight,
+          alignment: Alignment.bottomCenter,
           child: FadeTransition(
             opacity: animation,
             child: SlideTransition(
               position: position,
-              child: SizeTransition(
-                axis: Axis.horizontal,
-                sizeFactor: animation,
-                //   axis: Axis.vertical,
+              child: ScaleTransition(
+                scale: animation,
                 child: child,
               ),
             ),
